@@ -1,0 +1,11 @@
+node_modules/
+**/node_modules/
+.env
+**/.env
+dist/
+
+# Exclude heavy video assets
+*.webm
+**/*.webm
+*.mp4
+**/*.mp4

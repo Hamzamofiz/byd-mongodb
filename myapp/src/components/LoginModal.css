@@ -1,0 +1,138 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-box {
+  background: #111;
+  border: 1px solid #222;
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  position: relative;
+  animation: modalIn 0.25s ease;
+  margin: 16px;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: #fff; }
+
+/* Tabs */
+.modal-tabs {
+  display: flex;
+  border-bottom: 1px solid #222;
+  margin-bottom: 30px;
+}
+
+.modal-tabs button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #555;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  padding: 12px 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.modal-tabs button.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* Form */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: #888;
+}
+
+.form-group input {
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  color: #fff;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #fff;
+}
+
+.forgot-link {
+  font-size: 0.7rem;
+  color: #666;
+  text-decoration: none;
+  text-align: right;
+  letter-spacing: 1px;
+  margin-top: -8px;
+  transition: color 0.2s;
+}
+.forgot-link:hover { color: #fff; }
+
+.modal-btn {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 14px;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.2s;
+}
+.modal-btn:hover { background: #ddd; }
+
+.modal-switch {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+  margin: 0;
+}
+
+.modal-switch span {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .modal-box { padding: 24px 20px; }
+}
