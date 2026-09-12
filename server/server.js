@@ -17,6 +17,7 @@ app.use('/api/products', require('./routes/ProductRoutes'));
 app.use('/api/store', require('./routes/StoreProductRoutes'));
 app.use('/api/users', require('./routes/UserRoutes'));
 app.use('/api/order', require('./routes/OrderRoutes'));
+app.use('/api/cart', require('./routes/CartRoutes'));
 
 app.get('/', (req, res) => {
     res.send('hellow world')

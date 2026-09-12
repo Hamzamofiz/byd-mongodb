@@ -64,7 +64,6 @@ const Nav = ({
               <FaRegUserCircle size={22} />
             </button>
           )}
-          <Link to="/store" className="nav-icon"><BsCart3 size={22} /></Link>
           <button className="nav-icon cart-btn" onClick={() => setShowCart(true)}>
             <BsCart3 size={22} />
             {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}

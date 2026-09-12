@@ -1,30 +1,72 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
+import api from '../api/axios'
+import { useAuth } from './AuthContext'
 
 const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([])
+    const { user } = useAuth()
 
-    const addToCart = (product) => {
-        setCartItems(prev => {
-            const existing = prev.find(i => i._id === product._id)
-            if (existing) {
-                return prev.map(i => i._id === product._id ? { ...i, qty: i.qty + 1 } : i)
-            }
-            return [...prev, { ...product, qty: 1 }]
-        })
+    // User login hone par cart fetch karo, logout par clear karo
+    useEffect(() => {
+        if (user) {
+            fetchCart()
+        } else {
+            setCartItems([])
+        }
+    }, [user])
+
+    const fetchCart = async () => {
+        try {
+            const { data } = await api.get('/cart')
+            setCartItems(data.items || [])
+        } catch {
+            setCartItems([])
+        }
     }
 
-    const removeFromCart = (id) => {
-        setCartItems(prev => prev.filter(i => i._id !== id))
+    const addToCart = async (product) => {
+        if (!user) return alert('Please login to add items to cart')
+        try {
+            const { data } = await api.post('/cart/add', {
+                product: product._id,
+                title: product.title,
+                image: product.image,
+                price: product.price
+            })
+            setCartItems(data.items)
+        } catch (error) {
+            console.error('Add to cart failed:', error.message)
+        }
     }
 
-    const updateQty = (id, qty) => {
-        if (qty < 1) return removeFromCart(id)
-        setCartItems(prev => prev.map(i => i._id === id ? { ...i, qty } : i))
+    const updateQty = async (productId, qty) => {
+        try {
+            const { data } = await api.put(`/cart/update/${productId}`, { qty })
+            setCartItems(data.items)
+        } catch (error) {
+            console.error('Update qty failed:', error.message)
+        }
     }
 
-    const clearCart = () => setCartItems([])
+    const removeFromCart = async (productId) => {
+        try {
+            const { data } = await api.delete(`/cart/remove/${productId}`)
+            setCartItems(data.items)
+        } catch (error) {
+            console.error('Remove failed:', error.message)
+        }
+    }
+
+    const clearCart = async () => {
+        try {
+            await api.delete('/cart/clear')
+            setCartItems([])
+        } catch (error) {
+            console.error('Clear cart failed:', error.message)
+        }
+    }
 
     const totalItems = cartItems.reduce((sum, i) => sum + i.qty, 0)
     const totalPrice = cartItems.reduce((sum, i) => sum + i.price * i.qty, 0)

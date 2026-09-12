@@ -22,18 +22,18 @@ const CartDrawer = ({ onClose }) => {
                     <>
                         <div className="cart-items">
                             {cartItems.map(item => (
-                                <div key={item._id} className="cart-item">
+                                <div key={item.product} className="cart-item">
                                     <img src={item.image} alt={item.title} />
                                     <div className="cart-item-info">
                                         <p className="cart-item-title">{item.title}</p>
                                         <p className="cart-item-price">PKR {(item.price * item.qty).toLocaleString()}</p>
                                         <div className="cart-item-qty">
-                                            <button onClick={() => updateQty(item._id, item.qty - 1)}>−</button>
+                                            <button onClick={() => updateQty(item.product, item.qty - 1)}>−</button>
                                             <span>{item.qty}</span>
-                                            <button onClick={() => updateQty(item._id, item.qty + 1)}>+</button>
+                                            <button onClick={() => updateQty(item.product, item.qty + 1)}>+</button>
                                         </div>
                                     </div>
-                                    <button className="cart-item-remove" onClick={() => removeFromCart(item._id)}>
+                                    <button className="cart-item-remove" onClick={() => removeFromCart(item.product)}>
                                         <IoClose size={16} />
                                     </button>
                                 </div>
