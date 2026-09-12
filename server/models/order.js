@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const OderSchema = new mongoose.Schema({
+const OrderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -22,14 +22,15 @@ const OderSchema = new mongoose.Schema({
             }
         }
     ],
-    totalAmont:{
-        type:String,
-        required:true
+    totalAmount:{
+        type: Number,
+        required: true
     },
     status:{
-        type:String,
-        default:"pending"
+        type: String,
+        enum: ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'],
+        default: 'pending'
     },
 },{timestamps: true})
 
-module.exports = mongoose.model("Order",OderSchema);
+module.exports = mongoose.model("Order", OrderSchema);

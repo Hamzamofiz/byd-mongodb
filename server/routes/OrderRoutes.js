@@ -6,8 +6,8 @@ const auth = require('../middleware/auth');
 // Create order
 router.post('/', auth, async (req, res) => {
     try {
-        const { items, totalAmont } = req.body;
-        const order = await Order.create({ user: req.user.id, items, totalAmont });
+        const { items, totalAmount } = req.body;
+        const order = await Order.create({ user: req.user.id, items, totalAmount });
         res.status(201).json(order);
     } catch (error) {
         res.status(500).json({ message: error.message });
