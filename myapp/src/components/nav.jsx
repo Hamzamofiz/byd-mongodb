@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './nav.css'
 import { FaRegUserCircle } from 'react-icons/fa'
 import { HiMenuAlt3 } from 'react-icons/hi'
 import { IoClose } from 'react-icons/io5'
 import { BsCart3 } from 'react-icons/bs'
 import LoginModal from './LoginModal'
+import CartDrawer from './CartDrawer'
 import { useAuth } from '../context/AuthContext'
+import { useCart } from '../context/CartContext'
 
 const Nav = ({
   logo = "/download.png",
@@ -18,14 +20,23 @@ const Nav = ({
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
+  const [showCart, setShowCart] = useState(false)
   const { user, logout } = useAuth()
+  const { totalItems } = useCart()
+  const location = useLocation()
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
+  // route change hone par menu band karo aur scroll reset karo
+  useEffect(() => {
+    setIsMenuOpen(false)
+    document.body.style.overflow = 'unset'
+  }, [location.pathname])
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset'
     return () => { document.body.style.overflow = 'unset' }
   }, [isMenuOpen])
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
   return (
     <>
@@ -54,10 +65,15 @@ const Nav = ({
             </button>
           )}
           <Link to="/store" className="nav-icon"><BsCart3 size={22} /></Link>
+          <button className="nav-icon cart-btn" onClick={() => setShowCart(true)}>
+            <BsCart3 size={22} />
+            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
+          </button>
         </div>
       </nav>
 
       {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+      {showCart && <CartDrawer onClose={() => setShowCart(false)} />}
     </>
   )
 }

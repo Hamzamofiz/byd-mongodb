@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react'
 import api from '../../api/axios'
+import { useCart } from '../../context/CartContext'
 import './StorePage.css'
 
 const categories = ["All", "Apparel", "Accessories", "Chargers", "Lifestyle"]
 
 const StoreCard = ({ product }) => {
-  const [selectedSize, setSelectedSize] = useState(null)
+  const { addToCart } = useCart()
+  const [added, setAdded] = useState(false)
+
+  const handleAdd = () => {
+    addToCart(product)
+    setAdded(true)
+    setTimeout(() => setAdded(false), 1500)
+  }
 
   return (
     <div className="store-card">
@@ -18,8 +26,12 @@ const StoreCard = ({ product }) => {
         <p className="store-desc">{product.description}</p>
         <div className="store-card-bottom">
           <span className="store-price">PKR {product.price.toLocaleString()}</span>
-          <button className="add-to-cart" disabled={!product.inStock}>
-            {product.inStock ? 'ADD TO CART' : 'OUT OF STOCK'}
+          <button
+            className={`add-to-cart ${added ? 'added' : ''}`}
+            disabled={!product.inStock}
+            onClick={handleAdd}
+          >
+            {!product.inStock ? 'OUT OF STOCK' : added ? '✓ ADDED' : 'ADD TO CART'}
           </button>
         </div>
       </div>

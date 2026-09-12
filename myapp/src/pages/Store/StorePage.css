@@ -175,6 +175,8 @@
 }
 
 .add-to-cart:hover { background: #ddd; }
+.add-to-cart.added { background: #1db954; color: #fff; }
+.add-to-cart:disabled { background: #333; color: #666; cursor: not-allowed; }
 
 @media (max-width: 900px) {
   .store-grid { grid-template-columns: repeat(2, 1fr); }
