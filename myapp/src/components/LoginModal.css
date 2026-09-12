@@ -119,6 +119,17 @@
   transition: background 0.2s;
 }
 .modal-btn:hover { background: #ddd; }
+.modal-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.modal-error {
+  background: #1a0000;
+  border: 1px solid #c0392b;
+  color: #e74c3c;
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
 
 .modal-switch {
   font-size: 0.75rem;

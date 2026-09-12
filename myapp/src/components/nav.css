@@ -69,6 +69,45 @@ nav {
   color: #aaa;
 }
 
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-username {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.nav-logout {
+  background: transparent;
+  border: 1px solid #555;
+  color: #aaa;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-logout:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.store-status {
+  text-align: center;
+  color: #888;
+  padding: 40px;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+}
+
 .app-link {
   color: white;
   list-style: none !important;

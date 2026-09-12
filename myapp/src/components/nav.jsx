@@ -6,6 +6,7 @@ import { HiMenuAlt3 } from 'react-icons/hi'
 import { IoClose } from 'react-icons/io5'
 import { BsCart3 } from 'react-icons/bs'
 import LoginModal from './LoginModal'
+import { useAuth } from '../context/AuthContext'
 
 const Nav = ({
   logo = "/download.png",
@@ -17,6 +18,7 @@ const Nav = ({
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
+  const { user, logout } = useAuth()
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
@@ -41,9 +43,16 @@ const Nav = ({
         </ul>
 
         <div className="nav-icons">
-          <button className="nav-icon" onClick={() => setShowLogin(true)}>
-            <FaRegUserCircle size={22} />
-          </button>
+          {user ? (
+            <div className="nav-user">
+              <span className="nav-username"><FaRegUserCircle size={18} /> {user.name}</span>
+              <button className="nav-logout" onClick={logout}>LOGOUT</button>
+            </div>
+          ) : (
+            <button className="nav-icon" onClick={() => setShowLogin(true)}>
+              <FaRegUserCircle size={22} />
+            </button>
+          )}
           <Link to="/store" className="nav-icon"><BsCart3 size={22} /></Link>
         </div>
       </nav>
