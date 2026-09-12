@@ -12,10 +12,6 @@ const CarPage = ({ car }) => {
           <span className="car-hero-type">{car.type}</span>
           <h1>{car.name}</h1>
           <p className="car-hero-tagline">{car.tagline}</p>
-          <div className="car-hero-btns">
-            <button className="btn-primary">BOOK NOW</button>
-            <button className="btn-secondary">TEST DRIVE</button>
-          </div>
         </div>
       </div>
 
