@@ -13,6 +13,11 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Seed store products — remove old seed at bottom
+router.delete('/seed-remove', async (req, res) => {
+    res.json({ message: 'use POST /seed' })
+});
+
 // Get single store product
 router.get('/:id', async (req, res) => {
     try {
